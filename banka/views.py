@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from banka.models import Deposit
 from banka.Deposit import Deposit_class
+from django.views.generic import View, ListView, FormView, DetailView
 
 def add_deposit(request):
     if request.method == "POST":
@@ -26,15 +27,12 @@ def add_deposit(request):
 
         deposit.save()
 
+        deposits = Deposit.objects.all()
         context = {
-            'deposit': deposit.deposit,
-            'term': deposit.term,
-            'rate': deposit.rate,
-            'interest': interest,
+            'deposits': deposits,
         }
-
         return render(
-            template_name="deposit_detail.html",
+            template_name="deposit_list.html",
             request=request,
             context=context,
         )
@@ -58,6 +56,9 @@ def index(request):
         context=context,
     )
 
+class DepoDetailView(DetailView):
 
+	model = Deposit
+	template_name = 'deposit_detail.html'
 
 

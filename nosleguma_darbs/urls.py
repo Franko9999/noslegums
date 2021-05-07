@@ -23,6 +23,6 @@ import banka.views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', banka.views.index),
-    path('deposit/new', banka.views.add_deposit)
-
+    path('deposit/new', banka.views.add_deposit),
+    path('deposit/<int:pk>', banka.views.DepoDetailView.as_view(), name = 'depo-detail')
 ]
